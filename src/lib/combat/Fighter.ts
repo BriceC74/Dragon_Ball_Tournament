@@ -90,6 +90,10 @@ export default class FighterClass {
     return (this.stamina = 3);
   }
 
+  public specialAttack() {
+    throw new Error("Not Implemented.");
+  }
+
   /* getter and setter */
   public getInventory() {
     return this.inventory;
