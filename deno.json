@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts",
+    "compile": "deno compile --no-check -A -o releases/Dragon_ball_Tournament main.ts; chmod +x /releases/Dragon_ball_Tournament",
+    "compile.all": "deno compile --no-check -A --target aarch64-apple-darwin -o releases/Dragon_ball_Tournament-Apple_sillicon main.ts; deno compile --no-check -A --target x86_64-apple-darwin -o releases/Dragon_ball_Tournament-Apple_intel main.ts; deno compile --no-check -A --target x86_64-pc-windows-msvc -o releases/Dragon_ball_Tournament-Windows_x86_64 main.ts; deno compile --no-check -A --target aarch64-unknown-linux-gnu -o releases/Dragon_ball_Tournament-gnu_arm main.ts; deno compile --no-check -A --target x86_64-unknown-linux-gnu -o releases/Dragon_ball_Tournament-gnu_x86_64 main.ts"
+  },
+  "imports": {
+    "@inquirer/core": "npm:@inquirer/core@^10.0.0",
+    "@inquirer/prompts": "npm:@inquirer/prompts@^7.0.0"
+  }
+}
