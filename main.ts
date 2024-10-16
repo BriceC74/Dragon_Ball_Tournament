@@ -1,7 +1,8 @@
-import { select } from "@inquirer/prompts";
+import SonGohanClass from "./src/lib/combat/SonGohan.ts";
 
 async function main() {
-  await select({ message: "testing", choices: [] });
+  const player: SonGohanClass = SonGohanClass.createPlayer();
+  console.log(player.toString());
 }
 
 main();
