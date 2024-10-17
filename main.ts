@@ -1,5 +1,5 @@
 import SonGohanClass from "./src/lib/combat/SonGohan.ts";
-import SonGohanSsjClass from "./src/lib/combat/SonGohanSSJ.ts";
+import HitEventClass from "./src/lib/event/HitEvent.ts";
 
 async function main() {
   const player: SonGohanClass = SonGohanClass.createPlayer();
@@ -17,8 +17,16 @@ async function main() {
   //tournamentContext.training();
   //console.log(tournamentContext);
 
-  const sgssj = new SonGohanSsjClass(player);
-  console.log(sgssj.toString());
+  //const sgssj = new SonGohanSsjClass(player);
+  //console.log(sgssj.toString());
+
+  const hitEvent = new HitEventClass();
+  player.attach(hitEvent);
+  console.log("Notifying...");
+  player.notify();
+  player.detach(hitEvent);
+  console.log("Notifying...");
+  player.notify();
 }
 
 main();

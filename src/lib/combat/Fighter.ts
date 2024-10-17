@@ -124,6 +124,18 @@ export default class FighterClass {
     return this.stamina;
   }
 
+  public toStringHealth() {
+    const healthText: string[] = [];
+    for (let i = 0; i < this.health; i++) {
+      if (i >= this.actualHealth) {
+        healthText.push("🖤");
+        continue;
+      }
+      healthText.push("💛");
+    }
+    return `💛 Health: ${healthText.join("")}`;
+  }
+
   public toString({
     evolution,
     strength,
@@ -133,16 +145,8 @@ export default class FighterClass {
     strength?: string;
     ki?: string;
   } = {}) {
-    const healthText: string[] = [];
-    for (let i = 0; i < this.health; i++) {
-      if (i >= this.actualHealth) {
-        healthText.push("🖤");
-        continue;
-      }
-      healthText.push("💛");
-    }
     return `${this.name}:${evolution ? `\n${evolution}` : ""}
-💛 Health: ${healthText.join("")}
+${this.toStringHealth()}
 💪 Strength: ${strength ?? this.strength}
 ⚡️ Ki: ${ki ?? this.ki}`;
   }
