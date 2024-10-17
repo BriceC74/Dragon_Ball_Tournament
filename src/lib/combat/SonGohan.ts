@@ -4,7 +4,7 @@ export default class SonGohanClass extends FighterClass {
   private static sonGohan: SonGohanClass;
 
   private constructor() {
-    super("sonGohan", 5, 1, 1);
+    super("Son Gohan", 5, 1, 1);
   }
 
   static createPlayer() {
