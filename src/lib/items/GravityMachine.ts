@@ -1,4 +1,4 @@
-import FighterClass from "../combat/Fighter.ts";
+import type SonGohanClass from "../combat/SonGohan.ts";
 import ItemClass from "./ItemClass.ts";
 
 export default class GravityMachineClass extends ItemClass {
@@ -12,10 +12,11 @@ export default class GravityMachineClass extends ItemClass {
   }
 
   /* method */
-  public action(player: FighterClass): boolean {
-    const actualStamina: number = player.getStamina();
+  public action(player: SonGohanClass): boolean {
+    const previousStamina: number = player.getStamina();
+    const stamina = player.addStamina(1);
 
-    return player.addStamina(1) === actualStamina + 1;
+    return stamina === previousStamina + 1;
   }
 
   /* getter and setter */

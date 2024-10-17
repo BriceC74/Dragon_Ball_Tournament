@@ -3,6 +3,7 @@ import InventoryBuilderClass from "../items/InventoryBuilder.ts";
 import InventoryClass from "../items/Inventory.ts";
 import SenzuBeanClass from "../items/SenzuBean.ts";
 import GravityMachineClass from "../items/GravityMachine.ts";
+import type SonGohanSsjClass from "./SonGohanSSJ.ts";
 
 export interface FighterInterface {
   getStrength(): number;
@@ -11,8 +12,8 @@ export interface FighterInterface {
 
 export default class FighterClass {
   private actualHealth: number;
-  private stamina: number = 3;
   private inventory?: InventoryClass;
+  private isSpecialAttackUsed: boolean = false;
 
   constructor(
     private name: string,
@@ -87,21 +88,49 @@ export default class FighterClass {
     return this.actualHealth;
   }
 
-  public addStamina(amount: number) {
-    return (this.stamina += amount);
+  public attack(
+    type: "physical" | "ki",
+    target: FighterClass,
+    player?: SonGohanSsjClass,
+  ): boolean {
+    let damages: number;
+    switch (type) {
+      case "physical":
+        damages = player?.getStrength() ?? this.strength;
+        break;
+      case "ki":
+        damages = player?.getKi() ?? this.ki;
+        break;
+    }
+    return target.takeHit(damages);
   }
 
-  public regenerateStamina() {
-    return (this.stamina = 3);
+  public takeHit(amount: number): boolean {
+    this.actualHealth -= amount;
+    return this.actualHealth < 1;
   }
 
-  public specialAttack() {
-    throw new Error("Not Implemented.");
+  public specialAttack(player: FighterClass, catchPhrase?: string) {
+    if (!this.isSpecialAttackUsed) {
+      console.log(catchPhrase);
+      player.takeHit(this.ki + 2);
+    } else {
+      player.takeHit(this.ki);
+    }
+    this.isSpecialAttackUsed = true;
   }
 
   /* getter and setter */
   public getInventory() {
     return this.inventory;
+  }
+
+  public addHealth(): number {
+    return ++this.health;
+  }
+
+  public rest(): number {
+    return ++this.actualHealth;
   }
 
   public getHealth(): number {
@@ -112,16 +141,20 @@ export default class FighterClass {
     return this.actualHealth;
   }
 
+  public addStrength(): number {
+    return ++this.strength;
+  }
+
   public getStrength(): number {
     return this.strength;
   }
 
-  public getKi(): number {
-    return this.ki;
+  public addKi(): number {
+    return ++this.ki;
   }
 
-  public getStamina() {
-    return this.stamina;
+  public getKi(): number {
+    return this.ki;
   }
 
   public toStringHealth() {
